@@ -19,6 +19,7 @@ packages=(
     "fastfetch"
     "btop"
     "bash"
+    "tmux"
 )
 
 # Function to backup and remove conflicting files
