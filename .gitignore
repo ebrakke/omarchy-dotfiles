@@ -1,0 +1,22 @@
+# Secrets - never commit these
+.secrets
+*.secrets
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Editor directories
+.vscode/
+.idea/
+
+# Nvim generated files
+dotfiles/nvim/.config/.neoconf.json

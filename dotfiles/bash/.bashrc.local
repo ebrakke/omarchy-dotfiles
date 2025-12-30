@@ -1,0 +1,24 @@
+# Custom bash configurations
+# This file is sourced by ~/.bashrc
+
+# Source secrets if available (API keys, etc.)
+[[ -f ~/.secrets ]] && source ~/.secrets
+
+# Aliases
+alias pbcopy='wl-copy'
+alias pbpaste='wl-paste'
+alias claude-yolo='claude --allow-dangerously-skip-permissions'
+
+# Exports
+export TURBO_UI='stream'
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/llama/bin:$PATH"
+
+# LM Studio CLI
+export PATH="$PATH:$HOME/.lmstudio/bin"
+
+# Pulumi
+export PATH="$PATH:$HOME/.pulumi/bin"
+
+# Mise (if using)
+. "$HOME/.local/share/../bin/env" 2>/dev/null || true
