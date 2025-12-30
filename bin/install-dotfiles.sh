@@ -41,6 +41,37 @@ backup_conflicts() {
     done
 }
 
+# Create placeholder files for hypr configs we don't manage
+# (Hyprland expects these files to exist even if empty)
+ensure_hypr_placeholders() {
+    local hypr_dir="$HOME/.config/hypr"
+    mkdir -p "$hypr_dir"
+
+    # These are machine-specific or we just use omarchy defaults
+    local placeholders=(
+        "monitors.conf:# Machine-specific monitor config\n# See: hyprctl monitors\n# Example: monitor=,preferred,auto,1"
+        "envs.conf:# Extra env variables\n# env = MY_GLOBAL_ENV,setting"
+        "looknfeel.conf:# Custom look and feel overrides"
+        "autostart.conf:# Extra autostart processes\n# exec-once = uwsm app -- my-service"
+    )
+
+    for entry in "${placeholders[@]}"; do
+        file="${entry%%:*}"
+        content="${entry#*:}"
+        target="$hypr_dir/$file"
+
+        # Only create if file doesn't exist (don't overwrite user configs)
+        if [ ! -e "$target" ]; then
+            echo "  Creating placeholder: $file"
+            echo -e "$content" > "$target"
+        fi
+    done
+}
+
+# Ensure hypr placeholders exist first
+echo "Ensuring hypr config placeholders..."
+ensure_hypr_placeholders
+
 for pkg in "${packages[@]}"; do
     if [ -d "$DOTFILES_DIR/$pkg" ]; then
         echo "  Stowing $pkg..."
